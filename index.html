@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional JS Calculator V2</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/13.1.1/math.js" 
+            integrity="sha512-fMI/ndUubOcpzblrAaOFszYIE2iDKua+Cxg9dZp3cAkhsRWEHHbKtFCElHEQ50viX502yj7nFEEcxq2SOTNrIg==" 
+            crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Professional JS Calculator V2</h1>
+    <form name="proCalculator2" onsubmit="return false;">
+        <table id="calculator">
+            <tr>
+                <td colspan="4"><input class="result" type="text" name="result" readonly></td>
+            </tr>
+            <tbody id="calculator-body"></tbody>
+        </table>
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const keys = [
+                ['1', '2', '3', '/'],
+                ['4', '5', '6', '*'],
+                ['7', '8', '9', '-'],
+                ['0', '.', '=', '+'],
+                ['C', '(', ')', 'D']
+            ];
+
+            const calculatorBody = document.getElementById('calculator-body');
+
+            keys.forEach(row => {
+                const tr = document.createElement('tr');
+                row.forEach(key => {
+                    const td = document.createElement('td');
+                    const button = document.createElement('input');
+                    button.type = 'button';
+                    button.className = 'key';
+                    button.value = key;
+
+                    if (key === '=') {
+                        button.addEventListener('click', () => solve('proCalculator2'));
+                    } else if (key === 'C') {
+                        button.addEventListener('click', () => clr('proCalculator2'));
+                    } else if (key === 'D') {
+                        button.addEventListener('click', () => del('proCalculator2'));
+                    } else {
+                        button.addEventListener('click', () => dis(key, 'proCalculator2'));
+                    }
+
+                    td.appendChild(button);
+                    tr.appendChild(td);
+                });
+                calculatorBody.appendChild(tr);
+            });
+        });
+    </script>
+</body>
+</html>
